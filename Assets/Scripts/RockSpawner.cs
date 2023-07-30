@@ -8,17 +8,17 @@ public class RockSpawner : MonoBehaviour
     public GameObject topPrefab; // original scale 1.2f
     public GameObject botPrefab;
     public GameObject starPointPrefab;
+
     [SerializeField] float maxHorizonDistance;
     [SerializeField] float minHorizonDistance;
-    private float spawnTime;
     [SerializeField] float speedUpRange;
+
+    private float spawnTime;
     private float _leftStarPosX;
     private float _rightStarPosX;
 
     private float _cameraHeight;
     private bool _grounded = false;
-
-
 
     void Start()
     {
@@ -27,9 +27,6 @@ public class RockSpawner : MonoBehaviour
         spawnTime = Random.Range(minHorizonDistance, maxHorizonDistance);
         _cameraHeight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0)).y * 2 + 0.1f;
     }
-
-
-
 
     void Update()
     {
@@ -70,13 +67,5 @@ public class RockSpawner : MonoBehaviour
         float verticalPos = -_cameraHeight / 2 + 1.2f * randomVerticalScale;
         Instantiate(botPrefab, new Vector3(transform.position.x, verticalPos, 0f), Quaternion.identity, ground.transform);
         Instantiate(starPointPrefab, new Vector3(transform.position.x, _cameraHeight / 2 - (_cameraHeight - 2.4f * randomVerticalScale) / 2, 0f), Quaternion.identity, ground.transform);
-    }
-
-    private void RandomStarpoint()
-    {
-        if(_leftStarPosX != _rightStarPosX)
-        {
-            // Instantiate(starPointPrefab, new Vector3(trans))
-        }
     }
 }
