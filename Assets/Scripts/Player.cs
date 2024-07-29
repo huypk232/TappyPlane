@@ -16,6 +16,11 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        // todo refactor
+        if (Screen.height > Screen.width)
+        {
+            gameObject.transform.localScale = new Vector3(0.7f, 0.7f, 1);
+        }
         _audioSource = GetComponent<AudioSource>();
         _rb = GetComponent<Rigidbody2D>();
         _rb.gravityScale =  0f;

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 865874876064911975}
   - component: {fileID: 3057963925463117019}
   m_Layer: 0
-  m_Name: starSilver
+  m_Name: Silver Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

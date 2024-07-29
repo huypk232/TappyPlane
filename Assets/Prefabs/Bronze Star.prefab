@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8157677425761825054}
   - component: {fileID: 4347971180943586897}
   m_Layer: 0
-  m_Name: starBronze
+  m_Name: Bronze Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
