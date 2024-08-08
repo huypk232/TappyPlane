@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour
     public GameObject scoreCanvas;
     public GameObject gameOverCanvas;
     public GameObject enviroment;
-
+    [SerializeField] private GameObject medal; 
+    [SerializeField] private TextMeshProUGUI scoreText; 
+    
     public Sprite bronzeMedal, silverMedal, goldMedal;
 
     public int currentscore;
@@ -45,19 +47,21 @@ public class GameManager : MonoBehaviour
     {
         scoreCanvas.SetActive(false);
         gameOverCanvas.SetActive(true);
-        gameOverCanvas.transform.Find("Score").GetComponent<TextMeshProUGUI>().text = currentscore.ToString();
+        scoreText.text = currentscore.ToString();
         SaveScore();
         Time.timeScale = 0f;
         player.enabled = false;
-        GameObject medal = gameOverCanvas.transform.Find("Medal").gameObject;
-        if(currentscore < 10)
+        if (medal.TryGetComponent(out Image medalImage))
         {
-            medal.GetComponent<Image>().overrideSprite = bronzeMedal;
-        } else if(currentscore > 10 && currentscore < 30)
-        {
-            medal.GetComponent<Image>().overrideSprite = silverMedal;
-        } else {
-            medal.GetComponent<Image>().overrideSprite = goldMedal;
+            if(currentscore < 10)
+            {
+                medalImage.overrideSprite = bronzeMedal;
+            } else if(currentscore is > 10 and < 30)
+            {
+                medalImage.overrideSprite = silverMedal;
+            } else {
+                medalImage.overrideSprite = goldMedal;
+            }
         }
     }
 

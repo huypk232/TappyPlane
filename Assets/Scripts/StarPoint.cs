@@ -6,7 +6,7 @@ public class StarPoint : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.TryGetComponent<Player>(out Player player))
+        if(other.TryGetComponent(out Player player))
         {
             player.PlayCollectStarSound();
             GameManager.instance.IncreaseScore(1);

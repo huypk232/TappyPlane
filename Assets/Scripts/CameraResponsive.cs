@@ -8,7 +8,7 @@ public class CameraResponsive : MonoBehaviour
     
     void Start()
     {
-        RepositionCamera();
+        // RepositionCamera();
     }
 
     void Update()

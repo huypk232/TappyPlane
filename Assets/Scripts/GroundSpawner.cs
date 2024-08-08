@@ -7,7 +7,7 @@ public class GroundSpawner : MonoBehaviour
     [SerializeField] GameObject terrain;
     [SerializeField] GameObject groundPrefab;
 
-    private float speed = 7f;
+    [SerializeField] private float speed;
 
     private float deltaTimeSpeed;
 
@@ -20,7 +20,7 @@ public class GroundSpawner : MonoBehaviour
         deltaTimeSpeed -= Time.deltaTime;
         if(deltaTimeSpeed <= 0f)
         {
-            Instantiate(groundPrefab, new Vector3(transform.position.x + 8, transform.position.y, 0), Quaternion.identity, terrain.transform);
+            Instantiate(groundPrefab, new Vector3(transform.position.x + speed, transform.position.y, 0), Quaternion.identity, terrain.transform);
             deltaTimeSpeed = speed;
         }
     }

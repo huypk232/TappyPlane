@@ -1,13 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class RockSpawner : MonoBehaviour
 {
-    public GameObject ground;
+    public GameObject terrain;
     public GameObject topPrefab; // original scale 1.2f
     public GameObject botPrefab;
     public GameObject starPointPrefab;
+    [SerializeField] private GameObject pairOfPeaksPrefab;
 
     [SerializeField] float maxHorizonDistance;
     [SerializeField] float minHorizonDistance;
@@ -28,7 +32,17 @@ public class RockSpawner : MonoBehaviour
         _cameraHeight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0)).y * 2 + 0.1f;
     }
 
+    private void OnEnable()
+    {
+        InvokeRepeating("SpawnPairOfPeaks", 0.0f, 1.5f);
+    }
+
     void Update()
+    {
+        // SpawnPairOfPeaks();
+    }
+
+    private void SpawnRandomDirection()
     {
         spawnTime -= Time.deltaTime;
         if(spawnTime <= 0)
@@ -48,15 +62,15 @@ public class RockSpawner : MonoBehaviour
             spawnTime = Random.Range(minHorizonDistance, maxHorizonDistance);
         }
     }
-
+    
     private void RandomTopRock()
     {
         float randomVerticalScale = Random.Range(0.5f, 1.5f);
         Vector3 scaleChange = new Vector3(1f, randomVerticalScale, 1f);
         topPrefab.transform.localScale = scaleChange;
         float verticalPos = _cameraHeight / 2 - 1.2f * randomVerticalScale;
-        Instantiate(topPrefab, new Vector3(transform.position.x, verticalPos, 0f), Quaternion.identity, ground.transform);
-        Instantiate(starPointPrefab, new Vector3(transform.position.x, -_cameraHeight / 2 + (_cameraHeight - 2.4f * randomVerticalScale) / 2, 0f), Quaternion.identity, ground.transform);
+        Instantiate(topPrefab, new Vector3(transform.position.x, verticalPos, 0f), Quaternion.identity, terrain.transform);
+        Instantiate(starPointPrefab, new Vector3(transform.position.x, -_cameraHeight / 2 + (_cameraHeight - 2.4f * randomVerticalScale) / 2, 0f), Quaternion.identity, terrain.transform);
     }
 
     private void RandomBotRock()
@@ -65,7 +79,13 @@ public class RockSpawner : MonoBehaviour
         Vector3 scaleChange = new Vector3(1f, randomVerticalScale, 1f);
         botPrefab.transform.localScale = scaleChange;
         float verticalPos = -_cameraHeight / 2 + 1.2f * randomVerticalScale;
-        Instantiate(botPrefab, new Vector3(transform.position.x, verticalPos, 0f), Quaternion.identity, ground.transform);
-        Instantiate(starPointPrefab, new Vector3(transform.position.x, _cameraHeight / 2 - (_cameraHeight - 2.4f * randomVerticalScale) / 2, 0f), Quaternion.identity, ground.transform);
+        Instantiate(botPrefab, new Vector3(transform.position.x, verticalPos, 0f), Quaternion.identity, terrain.transform);
+        Instantiate(starPointPrefab, new Vector3(transform.position.x, _cameraHeight / 2 - (_cameraHeight - 2.4f * randomVerticalScale) / 2, 0f), Quaternion.identity, terrain.transform);
+    }
+
+    private void SpawnPairOfPeaks()
+    {
+        var height = Random.Range(-2.5f, 2.5f);
+        Instantiate(pairOfPeaksPrefab, new Vector3(transform.position.x, height, 0), Quaternion.identity, terrain.transform);
     }
 }
