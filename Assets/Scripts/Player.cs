@@ -70,7 +70,6 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.tag);
         {
             PlayCollectStarSound();
             GameManager.instance.IncreaseScore(1);

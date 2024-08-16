@@ -17,6 +17,7 @@ public class RockSpawner : MonoBehaviour
     [SerializeField] float minHorizonDistance;
     [SerializeField] float speedUpRange;
 
+    private float oldHeight;
     private float spawnTime;
     private float _leftStarPosX;
     private float _rightStarPosX;
@@ -85,7 +86,15 @@ public class RockSpawner : MonoBehaviour
 
     private void SpawnPairOfPeaks()
     {
-        var height = Random.Range(-2.5f, 2.5f);
-        Instantiate(pairOfPeaksPrefab, new Vector3(transform.position.x, height, 0), Quaternion.identity, terrain.transform);
+        var newHeight = Random.Range(-2.5f, 2.5f);
+        var safeIndex = 100;
+        while (Mathf.Abs(oldHeight - newHeight) > 2.5 && safeIndex > 0)
+        {
+            newHeight = Random.Range(-2.5f, 2.5f);
+            safeIndex--;
+        }
+
+        oldHeight = newHeight;
+        Instantiate(pairOfPeaksPrefab, new Vector3(transform.position.x, newHeight, 0), Quaternion.identity, terrain.transform);
     }
 }
